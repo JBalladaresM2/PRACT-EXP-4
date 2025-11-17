@@ -2,29 +2,80 @@
 // El sistema tendrá un textarea donde el usuario puede escribir un texto libre.
 // Sobre ese texto, los estudiantes deben implementar las siguientes funciones.
 
+let entrada
+
+function DeclararEjecutar() {
+    entrada = document.getElementById('input').value
+    console.log(`Texto ingresado: "${entrada}"`)
+}
+
 class ManipulacionDeCadenas {
     constructor(entrada) {
-        this.texto = entrada
+        this.texto = entrada;
     }
 
-    // 1. Contar el número total de palabras
+    // 1. Contar palabras
     ContarPalabras() {
+        const frase = this.texto.trim();
+        if (frase === "") return 0
 
+        let contador_palabras = 1;
+
+        for (let caracter of frase) {
+            if (caracter === " " || caracter === "\n") {
+                contador_palabras++
+            }
+        }
+
+        return contador_palabras
     }
 
-    // 2. Contar los signos de puntuación
+    // 2. Contar signos de puntuación
     ContarSignosPuntuadores() {
+        const frase = this.texto
+        let contador_puntuadores = 0
 
+        const signos = [',',';','.',':','¿','?','!','¡','(',')']
+
+        for (let caracter of frase) {
+            for (let signo of signos) {
+                if (caracter === signo) {
+                    contador_puntuadores++
+                }
+            }
+        }
+
+        return contador_puntuadores
     }
 
-    // 3. Contar las vocales
+    // 3. Contar vocales
     ContarVocales() {
+        const frase = this.texto.toLowerCase()
+        let contador_vocales = 0
 
+        for (let caracter of frase) {
+            if (caracter === 'a' || caracter === 'e' || caracter === 'i' || caracter === 'o' || caracter === 'u') {
+                contador_vocales++
+            }
+        }
+
+        return contador_vocales
     }
 
-    // 4. Contar los consonantes
+    // 4. Contar consonantes
     ContarConsonantes() {
+        const frase = this.texto.toLowerCase()
+        let contador_consonantes = 0
 
+        for (let caracter of frase) {
+            if (caracter >= 'a' && caracter <= 'z') {
+                if (!(caracter === 'a' || caracter === 'e' || caracter === 'i' || caracter === 'o' || caracter === 'u')) {
+                    contador_consonantes++
+                }
+            }
+        }
+
+        return contador_consonantes
     }
 
     // 5. Contar los dígitos
@@ -90,7 +141,8 @@ class ManipulacionDeCadenas {
 // o Salida: "Número de palabras: 4"
 
 function ejercicio_1() {
-
+    const CantidadPalabras = new ManipulacionDeCadenas(entrada)
+    console.log(`Total de palabras: ${CantidadPalabras.ContarPalabras()}`)
 }
 
 // 2. Contar los signos de puntuación
@@ -99,7 +151,8 @@ function ejercicio_1() {
 // o Salida: "Signos de puntuación: 3"
 
 function ejercicio_2() {
-    
+    const CantidadSignos = new ManipulacionDeCadenas(entrada)
+    console.log(`Signos de puntuación: ${CantidadSignos.ContarSignosPuntuadores()}`)
 }
 
 // 3. Contar las vocales
@@ -108,7 +161,8 @@ function ejercicio_2() {
 // o Salida: "Cantidad de vocales: 5"
 
 function ejercicio_3() {
-    
+    const CantidadVocales = new ManipulacionDeCadenas(entrada)
+    console.log(`Cantidad de vocales: ${CantidadVocales.ContarVocales()}`)
 }
 
 // 4. Contar los consonantes
@@ -117,7 +171,8 @@ function ejercicio_3() {
 // o Salida: "Cantidad de consonantes: 2"
 
 function ejercicio_4() {
-    
+    const CantidadConsonantes = new ManipulacionDeCadenas(entrada)
+    console.log(`Cantidad de consonantes: ${CantidadConsonantes.ContarConsonantes()}`)
 }
 
 // 5. Contar los dígitos
