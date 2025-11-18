@@ -3,27 +3,30 @@
 // Sobre ese texto, los estudiantes deben implementar las siguientes funciones.
 
 let entrada
-
-function DeclararEjecutar() {
+function DeclararTexto() {
     entrada = document.getElementById('input').value
-    console.log(`Texto ingresado: "${entrada}"`)
+    console.log(`Texto ingresado:\n${entrada}`)
 }
 
 class ManipulacionDeCadenas {
     constructor(entrada) {
-        this.texto = entrada;
+        this.texto = entrada
     }
 
     // 1. Contar palabras
-    ContarPalabras() {
-        const frase = this.texto.trim();
-        if (frase === "") return 0
-
-        let contador_palabras = 1;
+    contarPalabras() {
+        const frase = this.texto
+        let contador_palabras = 0
+        let dentroPalabra = false
 
         for (let caracter of frase) {
-            if (caracter === " " || caracter === "\n") {
-                contador_palabras++
+            if (caracter !== " " && caracter !== "\n") {
+                if (!dentroPalabra) {
+                    contador_palabras++
+                    dentroPalabra = true
+                }
+            } else {
+                dentroPalabra = false
             }
         }
 
@@ -31,25 +34,21 @@ class ManipulacionDeCadenas {
     }
 
     // 2. Contar signos de puntuación
-    ContarSignosPuntuadores() {
+    contarSignosPuntuadores() {
         const frase = this.texto
         let contador_puntuadores = 0
-
         const signos = [',',';','.',':','¿','?','!','¡','(',')']
 
         for (let caracter of frase) {
             for (let signo of signos) {
-                if (caracter === signo) {
-                    contador_puntuadores++
-                }
+                if (caracter === signo) contador_puntuadores++
             }
         }
-
         return contador_puntuadores
     }
 
     // 3. Contar vocales
-    ContarVocales() {
+    contarVocales() {
         const frase = this.texto.toLowerCase()
         let contador_vocales = 0
 
@@ -58,12 +57,11 @@ class ManipulacionDeCadenas {
                 contador_vocales++
             }
         }
-
         return contador_vocales
     }
 
     // 4. Contar consonantes
-    ContarConsonantes() {
+    contarConsonantes() {
         const frase = this.texto.toLowerCase()
         let contador_consonantes = 0
 
@@ -78,59 +76,150 @@ class ManipulacionDeCadenas {
         return contador_consonantes
     }
 
-    // 5. Contar los dígitos
-    ContarDigitos() {
+    // 5. Contar dígitos
+    contarDigitos() {
+        const frase = this.texto
+        let contador_digitos = 0
 
+        for (let caracter of frase) {
+            if (caracter >= '0' && caracter <= '9') {
+                contador_digitos++
+            }
+        }
+
+        return contador_digitos
     }
 
     // 6. Contar palabras que empiezan en mayúscula
-    ContarComienzaMayuscula() {
+    contarComienzaMayuscula() {
+        const frase = this.texto
+        let contador_mayusculas = 0
+        let nuevaPalabra = true
 
+        for (let caracter of frase) {
+            if (caracter === " " || caracter === "\n") {
+                nuevaPalabra = true
+            } else {
+                if (nuevaPalabra && caracter >= 'A' && caracter <= 'Z') {
+                    contador_mayusculas++
+                }
+                nuevaPalabra = false
+            }
+        }
+
+        return contador_mayusculas
     }
 
     // 7. Contar palabras que empiezan en minúscula
-    ContarComienzaMinuscula() {
+    contarComienzaMinuscula() {
+        const frase = this.texto
+        let contador_minusculas = 0
+        let nuevaPalabra = true
 
+        for (let caracter of frase) {
+            if (caracter === " " || caracter === "\n") {
+                nuevaPalabra = true
+            } else {
+                if (nuevaPalabra && caracter >= 'a' && caracter <= 'z') {
+                    contador_minusculas++
+                }
+                nuevaPalabra = false
+            }
+        }
+
+        return contador_minusculas
     }
 
     // 8. Contar párrafos
-    ContarParrafos() {
+    contarParrafos() {
+        const frase = this.texto
+        if (frase === "") return 0
 
+        let contador_parrafos = 1
+
+        for (let letra of frase) {
+            if (letra === "\n") contador_parrafos++;
+        }
+
+        return contador_parrafos
     }
 
-    // 9. Invertir el texto completo
-    InvertirTexto() {
+    // 9. Invertir texto completo
+    invertirTexto() {
+        const frase = this.texto
+        let frase_invertida = ""
 
+        for (let i = frase.length - 1; i >= 0; i--) {
+            frase_invertida += frase[i]
+        }
+
+        return frase_invertida
     }
 
     // 10. Contar todos los caracteres
-    ContarCaracteresTotales() {
-
+    contarCaracteresTotales() {
+        return this.texto.length
     }
 
-    // 11. Buscar una palabra en el texto
-    BuscarPalabra() {
+    // 11. Buscar palabra sin split
+    buscarPalabra(palabra) {
+        let palabra_actual = ""
 
+        for (let caracter of this.texto + " ") {
+            if (caracter !== " " && caracter !== "\n") {
+                palabra_actual += caracter
+            } else {
+                if (palabra_actual === palabra) return true;
+                palabra_actual = ""
+            }
+        }
+
+        return false
     }
 
-    // 12. Contar un carácter en el texto
-    ContarCaracter() {
+    // 12. Contar un carácter
+    contarCaracter(caracterBuscado) {
+        const frase = this.texto
+        let contador = 0
 
+        for (let caracter of frase) {
+            if (caracter === caracterBuscado) contador++;
+        }
+
+        return contador
     }
 
-    // 13. Contar caracteres en posiciones pares
-    ContarCaracterPosicionPar() {
-        
+    // 13. Caracteres en posiciones pares
+    contarCaracterPosicionPar() {
+        const frase = this.texto
+        let contador = 0
+
+        for (let i = 0; i < frase.length; i++) {
+            if (i % 2 === 0) contador++
+        }
+
+        return contador
     }
 
-    // 14. Contar caracteres en posiciones impares
-    ContarCaracterPosicionImpar() {
-        
+    // 14. Caracteres en posiciones impares
+    contarCaracterPosicionImpar() {
+        const frase = this.texto
+        let contador = 0
+
+        for (let i = 0; i < frase.length; i++) {
+            if (i % 2 !== 0) contador++
+        }
+
+        return contador
     }
 
-    // 15. Añadir un texto al inicio o al final
-    AñadirTexto() {
+    // 15. Añadir texto
+    añadirTexto(texto) {
+        const frase = this.texto
+        const texto_inicio = texto + " " + frase
+        const texto_final = frase + " " + texto
 
+        return `Al inicio: "${texto_inicio}" \nAl final: "${texto_final}"`
     }
 }
 
@@ -142,7 +231,7 @@ class ManipulacionDeCadenas {
 
 function ejercicio_1() {
     const CantidadPalabras = new ManipulacionDeCadenas(entrada)
-    console.log(`Total de palabras: ${CantidadPalabras.ContarPalabras()}`)
+    console.log(`Total de palabras: ${CantidadPalabras.contarPalabras()}`)
 }
 
 // 2. Contar los signos de puntuación
@@ -152,7 +241,7 @@ function ejercicio_1() {
 
 function ejercicio_2() {
     const CantidadSignos = new ManipulacionDeCadenas(entrada)
-    console.log(`Signos de puntuación: ${CantidadSignos.ContarSignosPuntuadores()}`)
+    console.log(`Signos de puntuación: ${CantidadSignos.contarSignosPuntuadores()}`)
 }
 
 // 3. Contar las vocales
@@ -162,7 +251,7 @@ function ejercicio_2() {
 
 function ejercicio_3() {
     const CantidadVocales = new ManipulacionDeCadenas(entrada)
-    console.log(`Cantidad de vocales: ${CantidadVocales.ContarVocales()}`)
+    console.log(`Cantidad de vocales: ${CantidadVocales.contarVocales()}`)
 }
 
 // 4. Contar los consonantes
@@ -172,7 +261,7 @@ function ejercicio_3() {
 
 function ejercicio_4() {
     const CantidadConsonantes = new ManipulacionDeCadenas(entrada)
-    console.log(`Cantidad de consonantes: ${CantidadConsonantes.ContarConsonantes()}`)
+    console.log(`Cantidad de consonantes: ${CantidadConsonantes.contarConsonantes()}`)
 }
 
 // 5. Contar los dígitos
@@ -181,7 +270,8 @@ function ejercicio_4() {
 // o Salida: "Cantidad de dígitos: 4"
 
 function ejercicio_5() {
-    
+    const CantidadDigitos = new ManipulacionDeCadenas(entrada)
+    console.log(`Cantidad de dígitos: ${CantidadDigitos.contarDigitos()}`)
 }
 
 // 6. Contar palabras que empiezan en mayúscula
@@ -190,7 +280,8 @@ function ejercicio_5() {
 // o Salida: "Palabras con mayúscula inicial: 2"
 
 function ejercicio_6() {
-    
+    const CantidadIncialMayusculas = new ManipulacionDeCadenas(entrada)
+    console.log(`Palabras con mayúscula inicial: ${CantidadIncialMayusculas.contarComienzaMayuscula()}`)
 }
 
 // 7. Contar palabras que empiezan en minúscula
@@ -199,7 +290,8 @@ function ejercicio_6() {
 // o Salida: "Palabras con minúscula inicial: 2"
 
 function ejercicio_7() {
-    
+    const CantidadIncialMinusculas = new ManipulacionDeCadenas(entrada)
+    console.log(`Palabras con minúscula inicial: ${CantidadIncialMinusculas.contarComienzaMinuscula()}`)
 }
 
 // 8. Contar párrafos
@@ -210,7 +302,8 @@ function ejercicio_7() {
 // o Salida: "Número de párrafos: 2"
 
 function ejercicio_8() {
-    
+    const CantidadParrafos = new ManipulacionDeCadenas(entrada)
+    console.log(`Número de párrafos: ${CantidadParrafos.contarParrafos()}`)
 }
 
 // 9. Invertir el texto completo
@@ -219,7 +312,8 @@ function ejercicio_8() {
 // o Salida: "aloH"
 
 function ejercicio_9() {
-    
+    const TextoInvertido = new ManipulacionDeCadenas(entrada)
+    console.log(`"${TextoInvertido.invertirTexto()}"`)
 }
 
 // 10. Contar todos los caracteres
@@ -228,7 +322,8 @@ function ejercicio_9() {
 // o Salida: "Total de caracteres: 9"
 
 function ejercicio_10() {
-    
+    const CantidadCaracteres = new ManipulacionDeCadenas(entrada)
+    console.log(`Total de caracteres: ${CantidadCaracteres.contarCaracteresTotales()}`)
 }
 
 // 11. Buscar una palabra en el texto
@@ -241,7 +336,14 @@ function ejercicio_10() {
 // 3. Salida: "La palabra 'programar' sí se encuentra en el texto."
 
 function ejercicio_11() {
-    
+    const EncontrarPalabra = new ManipulacionDeCadenas(entrada)
+    const BuscarPalabra = prompt("Ingresa palabra a buscar:").trim()
+
+    if (EncontrarPalabra.buscarPalabra(BuscarPalabra)) {
+        console.log(`La palabra '${BuscarPalabra}' sí se encuentra en el texto.`)
+    } else {
+        console.log(`La palabra '${BuscarPalabra}' no se encuentra en el texto.`)
+    }
 }
 
 // 12. Contar un carácter en el texto
@@ -253,7 +355,10 @@ function ejercicio_11() {
 // 3. Salida: "El carácter 'o' aparece 2 veces."
 
 function ejercicio_12() {
-    
+    const ContarCaracter = new ManipulacionDeCadenas(entrada)
+    const BuscarCaracter = prompt("Ingresa caracter a buscar:").trim()
+
+    console.log(`El carácter '${BuscarCaracter}' aparece ${ContarCaracter.contarCaracter(BuscarCaracter)} veces.`)
 }
 
 // 13. Contar caracteres en posiciones pares
@@ -265,7 +370,8 @@ function ejercicio_12() {
 // 3. Salida: "Caracteres en posiciones pares: 2"
 
 function ejercicio_13() {
-    
+    const CantidadCaracteresPosPar = new ManipulacionDeCadenas(entrada)
+    console.log(`Caracteres en posiciones pares: ${CantidadCaracteresPosPar.contarCaracterPosicionPar()}`)
 }
 
 // 14. Contar caracteres en posiciones impares
@@ -277,19 +383,27 @@ function ejercicio_13() {
 // 3. Salida: "Caracteres en posiciones impares: 2"
 
 function ejercicio_14() {
-    
+    const CantidadCaracteresPosImpar = new ManipulacionDeCadenas(entrada)
+    console.log(`Caracteres en posiciones impares: ${CantidadCaracteresPosImpar.contarCaracterPosicionImpar()}`)
 }
 
 // 15. Añadir un texto al inicio o al final
 // o Entrada: texto del textarea + un nuevo fragmento.
-// o Salida: mostrar el texto original con el fragmento agregado al inicio y también
-// al final.
+// o Salida: mostrar el texto original con el fragmento agregado al inicio y también al final.
 // o Ejemplo:
 // 1. Texto: "Aprender programación"
 // 2. Fragmento: "Hoy"
 // 3. Salida:
 // 1. Al inicio: "Hoy Aprender programación"
 // 2. Al final: "Aprender programación Hoy"
+
+function ejercicio_15() {
+    const AñadirTexto = new ManipulacionDeCadenas(entrada)
+    const TextoAdicional = prompt("Ingresa fragmento de texto adicional:").trim()
+
+    console.log(`${AñadirTexto.añadirTexto(TextoAdicional)}`)
+}
+
 // Reglas de implementación
 // • Cada funcionalidad debe hacerse con una función propia:
 // o contarPalabras(texto)
@@ -318,6 +432,17 @@ function ejercicio_14() {
 // • Texto invertido: "!selicef nos solE .otag 1 y sorrep 2 ogneT .odnuM aloH"
 // • Total de caracteres: 53
 
-function ejercicio_15() {
-    
+function ejercicio_16() {
+    const prueba = new ManipulacionDeCadenas(entrada)
+
+    console.log(`Palabras: ${prueba.contarPalabras()}`)
+    console.log(`Signos de puntuación: ${prueba.contarSignosPuntuadores()}`)
+    console.log(`Vocales: ${prueba.contarVocales()}`)
+    console.log(`Consonantes: ${prueba.contarConsonantes()}`)
+    console.log(`Dígitos: ${prueba.contarDigitos()}`)
+    console.log(`Palabras con mayúscula inicial: ${prueba.contarComienzaMayuscula()}`)
+    console.log(`Palabras con minúscula inicial: ${prueba.contarComienzaMinuscula()}`)
+    console.log(`Párrafos: ${prueba.contarParrafos()}`)
+    console.log(`Texto invertido: "${prueba.invertirTexto()}"`)
+    console.log(`Total de caracteres: ${prueba.contarCaracteresTotales()}`)
 }
