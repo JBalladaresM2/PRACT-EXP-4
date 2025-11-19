@@ -3,11 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Pract Exp 4</title>
 </head>
 <body>
-    <textarea name="input" id="input"></textarea>
-    <button type="button" onclick="console.clear(), DeclararTexto(), ejercicio_16()">Ejecutar</button>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Editor Simple</h1>
+        </div>
+        
+        <div class="content">
+            <div class="select-container">
+                <label for="ejercicios">Selecciona un ejercicio</label>
+                <select name="ejercicios" id="ejercicios">
+                    <option value="ejercicio_1">Ejercicio 1</option>
+                    <option value="ejercicio_2">Ejercicio 2</option>
+                    <option value="ejercicio_3">Ejercicio 3</option>
+                    <option value="ejercicio_4">Ejercicio 4</option>
+                    <option value="ejercicio_5">Ejercicio 5</option>
+                    <option value="ejercicio_6">Ejercicio 6</option>
+                    <option value="ejercicio_7">Ejercicio 7</option>
+                    <option value="ejercicio_8">Ejercicio 8</option>
+                    <option value="ejercicio_9">Ejercicio 9</option>
+                    <option value="ejercicio_10">Ejercicio 10</option>
+                    <option value="ejercicio_11">Ejercicio 11</option>
+                    <option value="ejercicio_12">Ejercicio 12</option>
+                    <option value="ejercicio_13">Ejercicio 13</option>
+                    <option value="ejercicio_14">Ejercicio 14</option>
+                    <option value="ejercicio_15">Ejercicio 15</option>
+                    <option value="ejercicio_16">Extra</option>
+                </select>
+            </div>
+
+            <div class="editor-container">
+                <textarea name="input" id="input" placeholder="Escribe tu código aquí..."></textarea>
+                <button type="button" onclick="LimpiarConsola(), DeclararTexto(), ejecutar()">▶ Ejecutar</button>
+            </div>
+
+            <div class="output-container">
+                <label>Salida</label>
+                <div id="output"></div>
+            </div>
+        </div>
+    </div>
 </body>
     <script src="EditorSimple.js"></script>
+    <script>
+        function ejecutar() {
+            let select = document.getElementById("ejercicios");
+            let valor = select.value; // ejemplo: "ejercicio_3"
+
+            if (valor && typeof window[valor] === "function") {
+            window[valor](); // ejecuta la función definida en sistema_biblioteca.js
+            } else {
+            alert("Selecciona un ejercicio válido");
+            }
+        }
+    </script>
 </html>
+
