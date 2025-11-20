@@ -146,7 +146,10 @@ class ManipulacionDeCadenas {
     // 8. Contar párrafos
     contarParrafos() {
         const frase = this.texto
-        if (frase === "") return 0
+        
+        if (frase === "") {
+            return 0
+        }
 
         let contador_parrafos = 1
 
